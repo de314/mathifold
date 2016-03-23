@@ -8,6 +8,16 @@ Urls = {
 		category: {
 			url(slug) {
 				return '/c/' + slug;
+			},
+			edit: {
+				url(catId) {
+					return '/manage/cat/' + catId;
+				}
+			}
+		},
+		create: {
+			url() {
+				return '/manage/cat';
 			}
 		}
 	},

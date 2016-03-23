@@ -5,6 +5,17 @@ Meteor.methods({
 	categoryBySlug(slug) {
 		return Categories.findOne({ slug: slug });
 	},
+	categoryCreate(cat) {
+		if (!ContentPolicies.canCreateCategory()) {
+			throw new Meteor.Error(403, 'Insufficient Priviledges');
+		}
+		let id = Categories.insert(cat);
+		if (!id) {
+			throw new Meteor.Error(500, 'An unexpected error occured.');	
+		}
+		return Categories.findOne(id);
+	},
+
 
 
 	subjectsByCatId(catId) {
@@ -13,6 +24,7 @@ Meteor.methods({
 	subjectBySlug(slug) {
 		return Subjects.findOne({ slug: slug });
 	},
+
 
 
 	topicsByCatId(catId) {

@@ -40,8 +40,17 @@ CategoriesList = React.createClass({
 		if (!_.isArray(this.state.categories)) {
 			return <Spinner />
 		}
+		let createEle = '';
+		if (ContentPolicies.canCreateCategory()) {
+			createEle = (
+					<div className="text-right">
+						<a href={ Urls.categories.create.url() } className="btn btn-primary">+ Create New Category</a>
+					</div>
+				);
+		}
 		return (
 			<div className="category-list">
+				{ createEle }
 				<div className="row category-tiles-container">
 					{ this.state.categories.map(this.renderCategory) }
 				</div>
