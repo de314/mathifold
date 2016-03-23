@@ -25,6 +25,16 @@ Urls = {
 		subject: {
 			url(slug) {
 				return '/s/' + slug;
+			},
+			edit: {
+				url(subId) {
+					return '/manage/sub/' + subId;
+				}
+			}
+		},
+		create: {
+			url(catId) {
+				return '/manage/cat/' + catId + '/sub'
 			}
 		}
 	},

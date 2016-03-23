@@ -44,7 +44,7 @@ CategoriesList = React.createClass({
 		if (ContentPolicies.canCreateCategory()) {
 			createEle = (
 					<div className="text-right">
-						<a href={ Urls.categories.create.url() } className="btn btn-primary">+ Create New Category</a>
+						<a href={ Urls.categories.create.url() } className="btn btn-primary"><i className="fa fa-plus"></i> Create New Category</a>
 					</div>
 				);
 		}

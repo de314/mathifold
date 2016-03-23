@@ -5,11 +5,23 @@ Meteor.methods({
 	categoryBySlug(slug) {
 		return Categories.findOne({ slug: slug });
 	},
-	categoryCreate(cat) {
-		if (!ContentPolicies.canCreateCategory()) {
-			throw new Meteor.Error(403, 'Insufficient Priviledges');
+	categoryById(id) {
+		return Categories.findOne({ _id: id });
+	},
+	categoryPublish(cat) {
+		let id;
+		if (!!cat._id) {
+			id = cat._id;
+			if (!ContentPolicies.canEditCategory(id)) {
+				throw new Meteor.Error(403, 'Insufficient Priviledges');
+			}
+			Categories.update(id, { $set: cat });
+		} else {
+			if (!ContentPolicies.canCreateCategory()) {
+				throw new Meteor.Error(403, 'Insufficient Priviledges');
+			}
+			id = Categories.insert(cat);
 		}
-		let id = Categories.insert(cat);
 		if (!id) {
 			throw new Meteor.Error(500, 'An unexpected error occured.');	
 		}

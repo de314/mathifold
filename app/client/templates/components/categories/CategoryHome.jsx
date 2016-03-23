@@ -20,6 +20,15 @@ CategoryHome = React.createClass({
 		if (!cat) {
 			return <Loader />;
 		}
+		let manageEle = '';
+		if (ContentPolicies.canCreateCategory()) {
+			manageEle = (
+					<div className="cat-manage"> 
+						<a href={ Urls.categories.category.edit.url(cat._id) } className="btn btn-primary"><i className="fa fa-pencil"></i> Edit</a>
+						<a href={ Urls.subjects.create.url(cat._id) } className="btn btn-primary"><i className="fa fa-plus"></i> New Subject</a>
+					</div>
+				);
+		}
 		return (
 			<div className="category-home">
 				<div className="cat-info">
@@ -28,6 +37,7 @@ CategoryHome = React.createClass({
 						{ cat.title }
 					</h1>
 				</div>
+				{ manageEle }
 				<div className="subject-list-container">
 					<SubjectList cat={ cat } />
 				</div>

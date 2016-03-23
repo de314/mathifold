@@ -18,3 +18,13 @@ FlowRouter.route('/manage/cat', {
 		});
 	}
 });
+
+FlowRouter.route('/manage/cat/:catId', {
+	name: 'categoryEdit',
+	action(params) {
+		ReactLayout.render(MainLayout, {
+			header: <Header />,
+			content: <CategoryForm catId={ params.catId } />
+		});
+	}
+});

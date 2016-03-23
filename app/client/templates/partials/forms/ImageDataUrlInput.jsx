@@ -87,18 +87,24 @@ ImageDataUrlInput = React.createClass({
 					</div>
 				)
 		}
+		return <div>&nbsp;</div>;
 	},
 	render() {
 		let className = "image-data-url-input " + this.props.className,
 			inputName = this.getInputName();
+		if (!this.state.img && !!this.props.value) {
+			this.state.img = this.props.value;
+		}
 		return (
 			<div className={ className }>
-				<div className="input-container col-xs-10">
-					<input type="file" name={ 'img' + Math.random() } onChange={ this.handleInputChange } />
-					<input type="hidden" name={ inputName } />
-				</div>
-				<div className="col-xs-2">
-					{ this.renderPreview(this.state.img) }
+				<div className="row">
+					<div className="input-container col-xs-9">
+						<input type="file" className="form-control" name={ 'img' + Math.random() } onChange={ this.handleInputChange } />
+						<input type="hidden" name={ inputName } />
+					</div>
+					<div className="col-xs-3">
+						{ this.renderPreview(this.state.img) }
+					</div>
 				</div>
 			</div>
 		);
