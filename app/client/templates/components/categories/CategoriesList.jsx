@@ -1,18 +1,33 @@
 CategoriesList = React.createClass({
-	mixins: [ ReactMeteorData ],
-	getMeteorData() {
-		Meteor.subscribe('categories');
-		return {
-			categories: Categories.find().fetch()
-		}
+	getInitialState() {
+	    return { };
 	},
-	componentDidMount() {
-	    let $m = $('.category-tiles-container').masonry({
+	componentWillMount() {
+	    let self = this;
+	    Meteor.call('categories', function(error, result) {
+	      	if (!!error) {
+	      		console.log(error);
+	      		toastr.error(error.reason);
+	      	} else {
+	      		self.setState({
+	      			categories: result
+	      		});
+	      	}
+	      });  
+	},
+	updateMasonryLayout() {
+		let $m = $('.category-tiles-container').masonry({
 	    	itemSelector: '.category-tile-container'
 	    });
 	    $m.imagesLoaded().progress( function() {
 	    	$m.masonry('layout');
 	    });
+	},
+	componentDidMount() {
+	    this.updateMasonryLayout();
+	},
+	componentDidUpdate(prevProps, prevState) {
+	    this.updateMasonryLayout();  
 	},
 	renderCategory(cat) {
 		return (
@@ -22,10 +37,13 @@ CategoriesList = React.createClass({
 			);
 	},
 	render() {
+		if (!_.isArray(this.state.categories)) {
+			return <Spinner />
+		}
 		return (
 			<div className="category-list">
 				<div className="row category-tiles-container">
-					{ this.data.categories.map(this.renderCategory) }
+					{ this.state.categories.map(this.renderCategory) }
 				</div>
 			</div>
 		);

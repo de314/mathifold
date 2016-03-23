@@ -14,7 +14,7 @@ CategoryTile = React.createClass({
 							<a href={ Urls.categories.category.url(cat.slug) } className="btn btn-primary">Explore</a>
 						</div>
 						<div className="col-xs-6 text-right text-muted">
-							S: { cat.subjectCount } T: { cat.topicsCount } L: { cat.lessonsCount }
+							S: { cat.subjectsCount } T: { cat.topicsCount } L: { cat.lessonsCount }
 						</div>
 					</div>
 				</div>
