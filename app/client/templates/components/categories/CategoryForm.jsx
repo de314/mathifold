@@ -5,7 +5,7 @@ CategoryForm = React.createClass({
 			title: e.target.title.value,
 			description: e.target.desc.value,
 			slug: e.target.slug.value,
-			img: '/images/ph.png'
+			img: e.target.img.value
 		};
 		Meteor.call('categoryCreate', cat, function(error, result) {
 			if (!!error) {
@@ -27,6 +27,10 @@ CategoryForm = React.createClass({
 					<div className="form-group">
 						<label htmlFor="title">Title</label>
 						<input type="text" className="cat-title form-control" name="title" placeholder="Category Title" />
+					</div>
+					<div className="form-group">
+						<label htmlFor="img">Image</label>
+						<ImageDataUrlInput className="cat-img" preview='true' square='true' maxWidth='320' maxHeight='320' />
 					</div>
 					<div className="form-group">
 						<label htmlFor="desc">Description</label>
