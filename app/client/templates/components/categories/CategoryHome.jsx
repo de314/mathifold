@@ -4,7 +4,7 @@ CategoryHome = React.createClass({
 	},
 	componentWillMount() {
 	    let self = this;
-	    Meteor.call('categoryBySlug', this.props.slug, function(error, result) {
+	    Meteor.call('categoryById', this.props.catId, function(error, result) {
 	    	if (!!error) {
 	    		console.log(error);
 	    		toastr.error(error.reason);
@@ -31,6 +31,9 @@ CategoryHome = React.createClass({
 		}
 		return (
 			<div className="category-home">
+				<div className="breadcrumbs-container">
+					{ Breadcrumbs.forCat(cat) }
+				</div>
 				<div className="cat-info">
 					<h1>
 						<img src={ cat.img } className="img-rounded" />

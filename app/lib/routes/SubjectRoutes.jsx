@@ -1,15 +1,15 @@
-FlowRouter.route('/s/:slug', {
-	name: 'subjectBySlug',
+FlowRouter.route(Urls.subjects.subject.url(':id'), {
+	name: 'subjectById',
 	action(params) {
 		
 		ReactLayout.render(MainLayout, {
 			header: <Header />,
-			content: <SubjectHome slug={ params.slug } />
+			content: <SubjectHome subId={ params.id } />
 		});
 	}
 });
 
-FlowRouter.route('/manage/:catId/sub', {
+FlowRouter.route(Urls.subjects.create.url(':catId'), {
 	name: 'subjectCreate',
 	action(params) {
 		
@@ -20,7 +20,7 @@ FlowRouter.route('/manage/:catId/sub', {
 	}
 });
 
-FlowRouter.route('/manage/:catId/:subId', {
+FlowRouter.route(Urls.subjects.subject.edit.url(':catId', ':subId'), {
 	name: 'subjectEdit',
 	action(params) {
 		ReactLayout.render(MainLayout, {

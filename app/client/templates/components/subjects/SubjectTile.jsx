@@ -11,7 +11,7 @@ SubjectTile = React.createClass({
 					</p>
 					<div className="row">
 						<div className="col-xs-6">
-							<a href={ Urls.subjects.subject.url(sub.slug) } className="btn btn-primary">Explore</a>
+							<a href={ Urls.subjects.subject.url(sub._id) } className="btn btn-primary">Explore</a>
 						</div>
 						<div className="col-xs-6 text-right text-muted">
 							T: { sub.topicsCount } L: { sub.lessonsCount }

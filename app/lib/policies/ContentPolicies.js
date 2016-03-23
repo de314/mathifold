@@ -12,5 +12,21 @@ ContentPolicies = {
 	},
 	canEditSubject(subId, userId = Meteor.userId()) {
 		return !!subId && !!userId;
+	},
+
+
+	canCreateTopic(userId = Meteor.userId()) {
+		return !!userId;
+	},
+	canEditTopic(topicId, userId = Meteor.userId()) {
+		return !!topicId && !!userId;
+	},
+
+
+	canCreateLesson(userId = Meteor.userId()) {
+		return !!userId;
+	},
+	canEditLesson(lessonId, userId = Meteor.userId()) {
+		return !!lessonId && !!userId;
 	}
 }

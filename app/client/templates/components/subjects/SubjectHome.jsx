@@ -4,7 +4,7 @@ SubjectHome = React.createClass({
 	},
 	componentWillMount() {
 	    let self = this;
-	    Meteor.call('subjectBySlug', this.props.slug, function(error, result) {
+	    Meteor.call('subjectById', this.props.subId, function(error, result) {
 	    	if (!!error) {
 	    		console.log(error);
 	    		toastr.error(error.reason);
@@ -31,6 +31,9 @@ SubjectHome = React.createClass({
 		}
 		return (
 			<div className="subject-home">
+				<div className="breadcrumbs-container">
+					{ Breadcrumbs.forSub(sub) }
+				</div>
 				<div className="sub-info">
 					<h1>
 						<img src={ sub.img } className="img-rounded" />

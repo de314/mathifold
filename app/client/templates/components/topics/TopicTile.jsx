@@ -11,7 +11,7 @@ TopicTile = React.createClass({
 					</p>
 					<div className="row">
 						<div className="col-xs-6">
-							<a href={ Urls.topics.topic.url(topic.slug) } className="btn btn-primary">Explore</a>
+							<a href={ Urls.topics.topic.url(topic._id) } className="btn btn-primary">Explore</a>
 						</div>
 						<div className="col-xs-6 text-right text-muted">
 							L: { topic.lessonsCount }

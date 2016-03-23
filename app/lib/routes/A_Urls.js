@@ -6,8 +6,8 @@ Urls = {
 	},
 	categories: {
 		category: {
-			url(slug) {
-				return '/c/' + slug;
+			url(catId) {
+				return '/cat/' + catId;
 			},
 			edit: {
 				url(catId) {
@@ -23,8 +23,8 @@ Urls = {
 	},
 	subjects: {
 		subject: {
-			url(slug) {
-				return '/s/' + slug;
+			url(subId) {
+				return '/sub/' + subId;
 			},
 			edit: {
 				url(catId, subId) {
@@ -40,13 +40,18 @@ Urls = {
 	},
 	topics: {
 		topic: {
-			url(slug) {
-				return '/t/' + slug;
+			url(topId) {
+				return '/top/' + topId;
+			},
+			edit: {
+				url(catId, subId, topicId) {
+					return '/manage/' + catId + '/' + subId + '/' + topicId;
+				}
 			}
 		},
 		create: {
 			url(catId, subId) {
-				return '/manage/cat/' + catId + '/sub/' + subId + '/topic'
+				return '/manage/' + catId + '/' + subId + '/topic'
 			}
 		}
 	},

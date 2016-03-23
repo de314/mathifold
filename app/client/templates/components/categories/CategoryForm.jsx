@@ -47,30 +47,34 @@ CategoryForm = React.createClass({
 	render() {
 		let cat = this.state.cat || {};
 		if (!!this.props.catId && this.props.catId !== cat._id) {
-			return <Loader />
+			return <Loader />;
 		}
-		console.log(cat);
 		return (
-			<div className="col-xs-8 col-xs-offset-2">
-				<form className="category-form" onSubmit={ this.handleSubmit }>
-					<div className="form-group">
-						<label htmlFor="title">Title</label>
-						<input type="text" className="cat-title form-control" name="title" placeholder="Category Title" defaultValue={ cat.title } />
-					</div>
-					<div className="form-group">
-						<label htmlFor="img">Image</label>
-						<ImageDataUrlInput className="cat-img" preview='true' square='true' maxWidth='320' maxHeight='320' value={ cat.img } />
-					</div>
-					<div className="form-group">
-						<label htmlFor="desc">Description</label>
-						<textarea rows="10" className="cat-desc form-control" name="desc" placeholder="Category Description" defaultValue={ cat.description }></textarea>
-					</div>
-					<div className="form-group">
-						<label htmlFor="slug">Url Slug</label>
-						<input type="text" className="cat-slug form-control" name="slug" placeholder="Url Slug e.g. /geometry" defaultValue={ cat.slug } />
-					</div>
-					<button type="submit" className="btn btn-primary">Submit</button>
-				</form>
+			<div className="category-form-page">
+				<div className="breadcrumbs-container">
+					{ Breadcrumbs.forIds(cat._id) }
+				</div>
+				<div className="col-xs-8 col-xs-offset-2">
+					<form className="category-form" onSubmit={ this.handleSubmit }>
+						<div className="form-group">
+							<label htmlFor="title">Title</label>
+							<input type="text" className="cat-title form-control" name="title" placeholder="Category Title" defaultValue={ cat.title } />
+						</div>
+						<div className="form-group">
+							<label htmlFor="img">Image</label>
+							<ImageDataUrlInput className="cat-img" preview='true' square='true' maxWidth='320' maxHeight='320' value={ cat.img } />
+						</div>
+						<div className="form-group">
+							<label htmlFor="desc">Description</label>
+							<textarea rows="10" className="cat-desc form-control" name="desc" placeholder="Category Description" defaultValue={ cat.description }></textarea>
+						</div>
+						<div className="form-group">
+							<label htmlFor="slug">Url Slug</label>
+							<input type="text" className="cat-slug form-control" name="slug" placeholder="Url Slug e.g. /geometry" defaultValue={ cat.slug } />
+						</div>
+						<button type="submit" className="btn btn-primary">Submit</button>
+					</form>
+				</div>
 			</div>
 		);
 	}

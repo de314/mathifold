@@ -1,4 +1,40 @@
 Meteor.methods({
+	breadcrumbs(params) {
+		let b = [ { title: 'Home', url: Urls.home.url() } ];
+		if (!!params.catId) {
+			let temp = Categories.findOne(params.catId, { fields: { title: 1 }});
+			if (!!temp) {
+				b.push({
+					title: temp.title,
+					url: Urls.categories.category.url(temp._id)
+				});
+			}
+		}
+		if (!!params.subId) {
+			let temp = Subjects.findOne(params.subId, { fields: { title: 1 }});
+			if (!!temp) {
+				b.push({
+					title: temp.title,
+					url: Urls.subjects.subject.url(temp._id)
+				});
+			}
+		}
+		if (!!params.topId) {
+			let temp = Topics.findOne(params.topId, { fields: { title: 1 }});
+			if (!!temp) {
+				b.push({
+					title: temp.title,
+					url: Urls.topics.topic.url(temp._id)
+				});
+			}
+		}
+		// if (!!params.lessId) {
+		// 	ctx.cat = Categories.findOne(catId, { fields: { title: 1 }});
+		// }
+		return b;
+	},
+
+
 	categories() {
 		return Categories.find().fetch();
 	},
@@ -33,6 +69,12 @@ Meteor.methods({
 
 
 
+	subjectTitles(catId) {
+		if (!!catId) {
+			return Subjects.find({ categoryId: catId }, { fields: { title: 1}}).fetch();
+		}
+		return Subjects.find({}, { fields: { title: 1}}).fetch();
+	},
 	subjectsByCatId(catId) {
 		return Subjects.find({ categoryId: catId }).fetch();
 	},
@@ -70,7 +112,26 @@ Meteor.methods({
 	topicsBySubId(subId) {
 		return Topics.find({ subjectId: subId }).fetch();
 	},
-	topicBySlug(slug) {
-		return Topics.findOne({ slug: slug });
+	topicById(id) {
+		return Topics.findOne(id);
+	},
+	topicPublish(topic) {
+		let id;
+		if (!!topic._id) {
+			id = topic._id;
+			if (!ContentPolicies.canEditTopic(id)) {
+				throw new Meteor.Error(403, 'Insufficient Priviledges');
+			}
+			Topics.update(id, { $set: topic });
+		} else {
+			if (!ContentPolicies.canCreateTopic()) {
+				throw new Meteor.Error(403, 'Insufficient Priviledges');
+			}
+			id = Topics.insert(topic);
+		}
+		if (!id) {
+			throw new Meteor.Error(500, 'An unexpected error occured.');	
+		}
+		return Topics.findOne(id);
 	}
 });

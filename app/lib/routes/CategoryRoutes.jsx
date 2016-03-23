@@ -1,15 +1,15 @@
-FlowRouter.route('/c/:slug', {
-	name: 'categoryBySlug',
+FlowRouter.route(Urls.categories.category.url(':id'), {
+	name: 'categoryById',
 	action(params) {
 		
 		ReactLayout.render(MainLayout, {
 			header: <Header />,
-			content: <CategoryHome slug={ params.slug } />
+			content: <CategoryHome catId={ params.id } />
 		});
 	}
 });
 
-FlowRouter.route('/manage/cat', {
+FlowRouter.route(Urls.categories.create.url(), {
 	name: 'categoryCreate',
 	action() {
 		ReactLayout.render(MainLayout, {
@@ -19,7 +19,7 @@ FlowRouter.route('/manage/cat', {
 	}
 });
 
-FlowRouter.route('/manage/cat/:catId', {
+FlowRouter.route(Urls.categories.category.edit.url(':catId'), {
 	name: 'categoryEdit',
 	action(params) {
 		ReactLayout.render(MainLayout, {
