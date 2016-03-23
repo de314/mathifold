@@ -15,7 +15,7 @@ FlowRouter.route('/s/:slug', {
 		
 		ReactLayout.render(MainLayout, {
 			header: <Header />,
-			content: <ComingSoon />
+			content: <SubjectHome slug={ params.slug } />
 		});
 	}
 });

@@ -18,6 +18,13 @@ Urls = {
 			}
 		}
 	},
+	topics: {
+		topic: {
+			url(slug) {
+				return '/t/' + slug;
+			}
+		}
+	},
 	forums: {
 		url() {
 			return '/f';
