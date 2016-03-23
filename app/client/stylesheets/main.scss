@@ -1,0 +1,15 @@
+//@import 'themes/_ja_variables';
+@import '{reywood:bootstrap3-sass}/bootstrap';
+@import url(https://fonts.googleapis.com/css?family=Roboto+Condensed);
+
+@import '_nav';
+@import '_partials';
+
+body {
+	font-family: 'Roboto Condensed', sans-serif;
+}
+
+
+img {
+	width: 100%;
+}
