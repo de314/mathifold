@@ -20,6 +20,15 @@ SubjectHome = React.createClass({
 		if (!sub) {
 			return <Loader />;
 		}
+		let manageEle = '';
+		if (ContentPolicies.canCreateSubject()) {
+			manageEle = (
+					<div className="cat-manage"> 
+						<a href={ Urls.subjects.subject.edit.url(sub.categoryId, sub._id) } className="btn btn-primary"><i className="fa fa-pencil"></i> Edit</a>
+						<a href={ Urls.topics.create.url(sub.categoryId, sub._id) } className="btn btn-primary"><i className="fa fa-plus"></i> New Topic</a>
+					</div>
+				);
+		}
 		return (
 			<div className="subject-home">
 				<div className="sub-info">
@@ -28,6 +37,7 @@ SubjectHome = React.createClass({
 						{ sub.title }
 					</h1>
 				</div>
+				{ manageEle }
 				<div className="subject-list-container">
 					<TopicsList sub={ sub } />
 				</div>

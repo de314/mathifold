@@ -100,7 +100,7 @@ ImageDataUrlInput = React.createClass({
 				<div className="row">
 					<div className="input-container col-xs-9">
 						<input type="file" className="form-control" name={ 'img' + Math.random() } onChange={ this.handleInputChange } />
-						<input type="hidden" name={ inputName } />
+						<input type="hidden" name={ inputName } defaultValue={ this.props.value } />
 					</div>
 					<div className="col-xs-3">
 						{ this.renderPreview(this.state.img) }

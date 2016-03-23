@@ -27,14 +27,14 @@ Urls = {
 				return '/s/' + slug;
 			},
 			edit: {
-				url(subId) {
-					return '/manage/sub/' + subId;
+				url(catId, subId) {
+					return '/manage/' + catId + '/' + subId;
 				}
 			}
 		},
 		create: {
 			url(catId) {
-				return '/manage/cat/' + catId + '/sub'
+				return '/manage/' + catId + '/sub'
 			}
 		}
 	},
@@ -42,6 +42,11 @@ Urls = {
 		topic: {
 			url(slug) {
 				return '/t/' + slug;
+			}
+		},
+		create: {
+			url(catId, subId) {
+				return '/manage/cat/' + catId + '/sub/' + subId + '/topic'
 			}
 		}
 	},
