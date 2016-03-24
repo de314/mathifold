@@ -1,9 +1,12 @@
 CategoryTile = React.createClass({
 	render() {
-		let cat = this.props.category;
+		let cat = this.props.category,
+			url = Urls.categories.category.url(cat._id);
 		return (
 			<div className="category-tile thumbnail">
-				<img src={ cat.img } />
+				<a href={ url }>
+					<img src={ cat.img } />
+				</a>
 				<div className="caption">
 					<h3>{ cat.title }</h3>
 					<p>
@@ -11,10 +14,12 @@ CategoryTile = React.createClass({
 					</p>
 					<div className="row">
 						<div className="col-xs-6">
-							<a href={ Urls.categories.category.url(cat._id) } className="btn btn-primary">Explore</a>
+							<a href={ url } className="btn btn-primary">Explore</a>
 						</div>
-						<div className="col-xs-6 text-right text-muted">
-							S: { cat.subjectsCount } T: { cat.topicsCount } L: { cat.lessonsCount }
+						<div className="col-xs-6 text-right">
+							<StatLabel text='S' val={ cat.subjectsCount } />
+							<StatLabel text='T' val={ cat.topicsCount } />
+							<StatLabel text='L' val={ cat.lessonsCount } />
 						</div>
 					</div>
 				</div>

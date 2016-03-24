@@ -12,10 +12,6 @@ Categories = new Mongo.Collection('categories');
 		description: {
 			type: String
 		},
-		slug: {
-			type: String,
-			regEx: /[a-zA-Z]\w+/
-		},
 		subjectsCount: {
 			type: Number,
 			defaultValue: 0
@@ -27,6 +23,10 @@ Categories = new Mongo.Collection('categories');
 		lessonsCount: {
 			type: Number,
 			defaultValue: 0
+		},
+		slug: {
+			type: String,
+			optional: true
 		}
 	});
 
@@ -56,3 +56,5 @@ Categories.deny({
 		return true;
 	}
 });
+
+Categories.defaultSort = { lessonsCount: -1, topicsCount: -1, subjectsCount: -1 };

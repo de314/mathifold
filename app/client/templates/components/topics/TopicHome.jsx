@@ -23,17 +23,17 @@ TopicHome = React.createClass({
 		let manageEle = '';
 		if (ContentPolicies.canCreateTopic()) {
 			manageEle = (
-					<div className="cat-manage"> 
+					<div className="topic-manage"> 
 						<a href={ Urls.topics.topic.edit.url(topic.categoryId, topic.subjectId, topic._id) } className="btn btn-primary"><i className="fa fa-pencil"></i> Edit</a>
 					</div>
 				);
 		}
 		return (
-			<div className="subject-home">
+			<div className="topic-home">
 				<div className="breadcrumbs-container">
 					{ Breadcrumbs.forTopic(topic) }
 				</div>
-				<div className="sub-info">
+				<div className="topic-info">
 					<h1>
 						<img src={ topic.img } className="img-rounded" />
 						{ topic.title }

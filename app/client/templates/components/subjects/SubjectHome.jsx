@@ -23,7 +23,7 @@ SubjectHome = React.createClass({
 		let manageEle = '';
 		if (ContentPolicies.canCreateSubject()) {
 			manageEle = (
-					<div className="cat-manage"> 
+					<div className="subject-manage"> 
 						<a href={ Urls.subjects.subject.edit.url(sub.categoryId, sub._id) } className="btn btn-primary"><i className="fa fa-pencil"></i> Edit</a>
 						<a href={ Urls.topics.create.url(sub.categoryId, sub._id) } className="btn btn-primary"><i className="fa fa-plus"></i> New Topic</a>
 					</div>

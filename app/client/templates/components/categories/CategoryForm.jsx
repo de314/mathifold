@@ -25,7 +25,6 @@ CategoryForm = React.createClass({
 		let cat = {
 			title: e.target.title.value,
 			description: e.target.desc.value,
-			slug: e.target.slug.value,
 			img: e.target.img.value
 		};
 		if (!!this.state.cat) {
@@ -39,7 +38,7 @@ CategoryForm = React.createClass({
 			} else {
 				toastr.success('Success! Redirecting in 2s...');
 				setTimeout(function() {
-					FlowRouter.go(Urls.categories.category.url(result.slug));
+					FlowRouter.go(Urls.categories.category.url(result._id));
 				}, 1750);
 			}
 		});
@@ -67,10 +66,6 @@ CategoryForm = React.createClass({
 						<div className="form-group">
 							<label htmlFor="desc">Description</label>
 							<textarea rows="10" className="cat-desc form-control" name="desc" placeholder="Category Description" defaultValue={ cat.description }></textarea>
-						</div>
-						<div className="form-group">
-							<label htmlFor="slug">Url Slug</label>
-							<input type="text" className="cat-slug form-control" name="slug" placeholder="Url Slug e.g. /geometry" defaultValue={ cat.slug } />
 						</div>
 						<button type="submit" className="btn btn-primary">Submit</button>
 					</form>

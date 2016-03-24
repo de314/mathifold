@@ -60,6 +60,15 @@ function syncContentCounts() {
 }
 
 Meteor.startup(() => {
+	Migrations.add({
+		version: 1,
+		up() {
+			Categories.update({}, { $unset: { slug: "" }}, { multi: true });
+			Subjects.update({}, { $unset: { slug: "" }}, { multi: true });
+			Topics.update({}, { $unset: { slug: "" }}, { multi: true });
+		}
+	});
+
 	Migrations.migrateTo('latest');
 
 	syncContentCounts();

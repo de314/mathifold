@@ -1,9 +1,12 @@
 TopicTile = React.createClass({
 	render() {
-		let topic = this.props.topic;
+		let topic = this.props.topic,
+			url = Urls.topics.topic.url(topic._id);
 		return (
 			<div className="topic-tile thumbnail">
-				<img src={ topic.img } />
+				<a href={ url }>
+					<img src={ topic.img } />
+				</a>
 				<div className="caption">
 					<h3>{ topic.title }</h3>
 					<p>
@@ -11,10 +14,10 @@ TopicTile = React.createClass({
 					</p>
 					<div className="row">
 						<div className="col-xs-6">
-							<a href={ Urls.topics.topic.url(topic._id) } className="btn btn-primary">Explore</a>
+							<a href={ url } className="btn btn-primary">Explore</a>
 						</div>
 						<div className="col-xs-6 text-right text-muted">
-							L: { topic.lessonsCount }
+							<StatLabel text='L' val={ topic.lessonsCount } />
 						</div>
 					</div>
 				</div>

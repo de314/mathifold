@@ -37,7 +37,6 @@ SubjectForm = React.createClass({
 			categoryId: e.target.catId.value,
 			title: e.target.title.value,
 			description: e.target.desc.value,
-			slug: e.target.slug.value,
 			img: e.target.img.value
 		};
 		if (!!this.state.sub) {
@@ -51,7 +50,7 @@ SubjectForm = React.createClass({
 			} else {
 				toastr.success('Success! Redirecting in 2s...');
 				setTimeout(function() {
-					FlowRouter.go(Urls.subjects.subject.url(result.slug));
+					FlowRouter.go(Urls.subjects.subject.url(result._id));
 				}, 1750);
 			}
 		});
@@ -89,10 +88,6 @@ SubjectForm = React.createClass({
 						<div className="form-group">
 							<label htmlFor="desc">Description</label>
 							<textarea rows="10" className="sub-desc form-control" name="desc" placeholder="Category Description" defaultValue={ sub.description }></textarea>
-						</div>
-						<div className="form-group">
-							<label htmlFor="slug">Url Slug</label>
-							<input type="text" className="sub-slug form-control" name="slug" placeholder="Url Slug e.g. /geometry" defaultValue={ sub.slug } />
 						</div>
 						<button type="submit" className="btn btn-primary">Submit</button>
 					</form>

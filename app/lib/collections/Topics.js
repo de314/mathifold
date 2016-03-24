@@ -18,13 +18,13 @@ Topics = new Mongo.Collection('topics');
 		description: {
 			type: String
 		},
-		slug: {
-			type: String,
-			regEx: /[a-zA-Z]\w+/
-		},
 		lessonsCount: {
 			type: Number,
 			defaultValue: 0
+		},
+		slug: {
+			type: String,
+			optional: true
 		}
 	});
 

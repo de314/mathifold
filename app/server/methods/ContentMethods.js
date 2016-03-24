@@ -36,13 +36,10 @@ Meteor.methods({
 
 
 	categories() {
-		return Categories.find().fetch();
+		return Categories.find({}, { sort: Categories.defaultSort }).fetch();
 	},
 	categoryTitles() {
-		return Categories.find({}, { fields: { title: 1}}).fetch();
-	},
-	categoryBySlug(slug) {
-		return Categories.findOne({ slug: slug });
+		return Categories.find({}, { fields: { title: 1}, sort: { title: 1 }}).fetch();
 	},
 	categoryById(id) {
 		return Categories.findOne({ _id: id });
@@ -71,15 +68,12 @@ Meteor.methods({
 
 	subjectTitles(catId) {
 		if (!!catId) {
-			return Subjects.find({ categoryId: catId }, { fields: { title: 1}}).fetch();
+			return Subjects.find({ categoryId: catId }, { fields: { title: 1}, sort: { title: 1 }}).fetch();
 		}
-		return Subjects.find({}, { fields: { title: 1}}).fetch();
+		return Subjects.find({}, { fields: { title: 1}, sort: { title: 1 }}).fetch();
 	},
 	subjectsByCatId(catId) {
-		return Subjects.find({ categoryId: catId }).fetch();
-	},
-	subjectBySlug(slug) {
-		return Subjects.findOne({ slug: slug });
+		return Subjects.find({ categoryId: catId }, { sort: Subjects.defaultSort }).fetch();
 	},
 	subjectById(subId) {
 		return Subjects.findOne(subId);
@@ -107,10 +101,10 @@ Meteor.methods({
 
 
 	topicsByCatId(catId) {
-		return Topics.find({ categoryId: catId }).fetch();
+		return Topics.find({ categoryId: catId }, { sort: { countLessons: -1 }}).fetch();
 	},
 	topicsBySubId(subId) {
-		return Topics.find({ subjectId: subId }).fetch();
+		return Topics.find({ subjectId: subId }, { sort: { countLessons: -1 }}).fetch();
 	},
 	topicById(id) {
 		return Topics.findOne(id);

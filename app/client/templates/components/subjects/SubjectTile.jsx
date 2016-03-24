@@ -1,9 +1,12 @@
 SubjectTile = React.createClass({
 	render() {
-		let sub = this.props.subject;
+		let sub = this.props.subject,
+			url = Urls.subjects.subject.url(sub._id);
 		return (
 			<div className="category-tile thumbnail">
-				<img src={ sub.img } />
+				<a href={ url }>
+					<img src={ sub.img } />
+				</a>
 				<div className="caption">
 					<h3>{ sub.title }</h3>
 					<p>
@@ -11,10 +14,11 @@ SubjectTile = React.createClass({
 					</p>
 					<div className="row">
 						<div className="col-xs-6">
-							<a href={ Urls.subjects.subject.url(sub._id) } className="btn btn-primary">Explore</a>
+							<a href={ url } className="btn btn-primary">Explore</a>
 						</div>
 						<div className="col-xs-6 text-right text-muted">
-							T: { sub.topicsCount } L: { sub.lessonsCount }
+							<StatLabel text='T' val={ sub.topicsCount } />
+							<StatLabel text='L' val={ sub.lessonsCount } />
 						</div>
 					</div>
 				</div>
