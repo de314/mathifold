@@ -10,7 +10,8 @@ Categories = new Mongo.Collection('categories');
 			optional: true
 		},
 		description: {
-			type: String
+			type: String,
+			optional: true
 		},
 		subjectsCount: {
 			type: Number,

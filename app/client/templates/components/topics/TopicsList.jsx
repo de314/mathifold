@@ -32,7 +32,7 @@ TopicsList = React.createClass({
 	},
 	renderTopic(topic) {
 		return (
-				<div className="col-xs-6 col-md-4 col-lg-3 topic-tile-container" key={ topic.slug }>
+				<div className="col-xs-6 col-md-4 col-lg-3 topic-tile-container" key={ topic._id }>
 					<TopicTile topic={ topic } />
 				</div>
 			);

@@ -31,7 +31,7 @@ CategoriesList = React.createClass({
 	},
 	renderCategory(cat) {
 		return (
-				<div className="col-xs-6 col-md-4 col-lg-3 category-tile-container" key={ cat.slug }>
+				<div className="col-xs-6 col-md-4 col-lg-3 category-tile-container" key={ cat._id }>
 					<CategoryTile category={ cat } />
 				</div>
 			);

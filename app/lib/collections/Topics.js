@@ -16,7 +16,8 @@ Topics = new Mongo.Collection('topics');
 			optional: true
 		},
 		description: {
-			type: String
+			type: String,
+			optional: true
 		},
 		lessonsCount: {
 			type: Number,

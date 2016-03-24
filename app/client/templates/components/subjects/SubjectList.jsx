@@ -32,7 +32,7 @@ SubjectList = React.createClass({
 	},
 	renderSubject(sub) {
 		return (
-				<div className="col-xs-6 col-md-4 col-lg-3 subject-tile-container" key={ sub.slug }>
+				<div className="col-xs-6 col-md-4 col-lg-3 subject-tile-container" key={ sub._id }>
 					<SubjectTile subject={ sub } />
 				</div>
 			);

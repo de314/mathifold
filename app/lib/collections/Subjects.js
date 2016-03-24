@@ -13,7 +13,8 @@ Subjects = new Mongo.Collection('subjects');
 			optional: true
 		},
 		description: {
-			type: String
+			type: String,
+			optional: true
 		},
 		topicsCount: {
 			type: Number,

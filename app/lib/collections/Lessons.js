@@ -22,7 +22,8 @@ Lessons = new Mongo.Collection('lessons');
 			optional: true
 		},
 		description: {
-			type: String
+			type: String,
+			optional: true
 		},
 		content: {
 			type: String
