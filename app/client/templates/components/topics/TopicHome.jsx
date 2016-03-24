@@ -25,6 +25,7 @@ TopicHome = React.createClass({
 			manageEle = (
 					<div className="topic-manage"> 
 						<a href={ Urls.topics.topic.edit.url(topic.categoryId, topic.subjectId, topic._id) } className="btn btn-primary"><i className="fa fa-pencil"></i> Edit</a>
+						<a href={ Urls.lessons.create.url(topic.categoryId, topic.subjectId, topic._id) } className="btn btn-primary"><i className="fa fa-plus"></i> New Lesson</a>
 					</div>
 				);
 		}

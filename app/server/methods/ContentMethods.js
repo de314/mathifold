@@ -95,11 +95,16 @@ Meteor.methods({
 		if (!id) {
 			throw new Meteor.Error(500, 'An unexpected error occured.');	
 		}
-		return Subjects.findOne(id);
+		let val = Subjects.findOne(id);
+		Meteor.defer(() => { StatHelpers.syncForSubject(val); });
+		return val;
 	},
 
 
 
+	topicTitles(subId) {
+		return Topics.find({ subjectId: subId }, { fields: { title: 1}, sort: { title: 1 }}).fetch();
+	},
 	topicsByCatId(catId) {
 		return Topics.find({ categoryId: catId }, { sort: { countLessons: -1 }}).fetch();
 	},
@@ -126,6 +131,32 @@ Meteor.methods({
 		if (!id) {
 			throw new Meteor.Error(500, 'An unexpected error occured.');	
 		}
-		return Topics.findOne(id);
+		let val = Topics.findOne(id);
+		Meteor.defer(() => { StatHelpers.syncForTopic(val); });
+		return val;
+	},
+
+
+
+	lessonPublish(lesson) {
+		let id;
+		if (!!lesson._id) {
+			id = lesson._id;
+			if (!ContentPolicies.canEditLessons(id)) {
+				throw new Meteor.Error(403, 'Insufficient Priviledges');
+			}
+			Lessons.update(id, { $set: lesson });
+		} else {
+			if (!ContentPolicies.canCreateLesson()) {
+				throw new Meteor.Error(403, 'Insufficient Priviledges');
+			}
+			id = Lessons.insert(lesson);
+		}
+		if (!id) {
+			throw new Meteor.Error(500, 'An unexpected error occured.');	
+		}
+		let val = Lessons.findOne(id);
+		Meteor.defer(() => { StatHelpers.syncForLesson(val); });
+		return val;
 	}
 });

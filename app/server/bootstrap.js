@@ -37,27 +37,47 @@ Meteor.publishCounter = function(params) {
 	});
 };
 
-function syncContentCounts() {
-	console.log('sync-ing counts...');
-	let cats = Categories.find({}, { fields: { _id: 1 }}).fetch(),
-		subs = Subjects.find({}, { fields: { _id: 1 }}).fetch();
-	_.each(cats, function(cat) {
-		let catId = cat._id;
+StatHelpers = {
+	syncContentCounts() {
+		console.log('sync-ing counts...');
+		let cats = Categories.find({}, { fields: { _id: 1 }}).fetch().map((cat) => { return cat._id }),
+			subs = Subjects.find({}, { fields: { _id: 1 }}).fetch().map((sub) => { return sub._id }),
+			tops = Topics.find({}, { fields: { _id: 1 }}).fetch().map((top) => { return top._id });
+		_.each(cats, StatHelpers.syncCategory);
+		_.each(subs, StatHelpers.syncSubject);
+		_.each(tops, StatHelpers.syncTopic);
+	},
+	syncCategory(catId) {
 		Categories.update(catId, { $set: {
 			subjectsCount: Subjects.find({ categoryId: catId }).count(),
-			topicsCount: Topics.find({ categoryId: catId }).count()
-			// TODO: lessons count
+			topicsCount: Topics.find({ categoryId: catId }).count(),
+			lessonsCount: Lessons.find({ categoryId: catId }).count()
 		}});
-	});
-	_.each(subs, function(sub) {
-		let subId = sub._id;
+	},
+	syncSubject(subId) {
 		Subjects.update(subId, { $set: {
-			topicsCount: Topics.find({ subjectId: subId }).count()
-			// TODO: lessons count
+			topicsCount: Topics.find({ subjectId: subId }).count(),
+			lessonsCount: Lessons.find({ subjectId: subId }).count()
 		}});
-	});
-	// TODO: topics
-}
+	},
+	syncTopic(topId) {
+		Topics.update(topId, { $set: {
+			lessonsCount: Lessons.find({ topicId: topId }).count()
+		}});
+	},
+	syncForSubject(sub) {
+		StatHelpers.syncCategory(sub.categoryId);
+	},
+	syncForTopic(top) {
+		StatHelpers.syncCategory(top.categoryId);
+		StatHelpers.syncSubject(top.subjectId);
+	},
+	syncForLesson(less) {
+		StatHelpers.syncCategory(less.categoryId);
+		StatHelpers.syncSubject(less.subjectId);
+		StatHelpers.syncTopic(less.topicId);
+	}
+};
 
 Meteor.startup(() => {
 	Migrations.add({
@@ -71,7 +91,7 @@ Meteor.startup(() => {
 
 	Migrations.migrateTo('latest');
 
-	syncContentCounts();
+	StatHelpers.syncContentCounts();
 
-	Meteor.setInterval(syncContentCounts, 2 * 60 * 1000);
+	Meteor.setInterval(StatHelpers.syncContentCounts, 30 * 60 * 1000);
 });

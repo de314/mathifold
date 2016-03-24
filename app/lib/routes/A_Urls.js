@@ -51,7 +51,19 @@ Urls = {
 		},
 		create: {
 			url(catId, subId) {
-				return '/manage/' + catId + '/' + subId + '/topic'
+				return '/manage/' + catId + '/' + subId + '/topic';
+			}
+		}
+	},
+	lessons: {
+		lesson: {
+			url(lessId) {
+				return '/less/' + lessId;
+			}
+		},
+		create: {
+			url(catId, subId, topId) {
+				return '/manage/' + catId + '/' + subId + '/' + topId + '/lesson';
 			}
 		}
 	},
