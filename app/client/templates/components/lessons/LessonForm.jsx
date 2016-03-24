@@ -3,7 +3,7 @@ LessonForm = React.createClass({
 	    catId: React.PropTypes.string.isRequired,
 	    subId: React.PropTypes.string.isRequired,
 	    topId: React.PropTypes.string.isRequired,
-	    lessonId: React.PropTypes.string
+	    lessId: React.PropTypes.string
 	},
 	getInitialState() {
 	    return {
@@ -40,10 +40,10 @@ LessonForm = React.createClass({
 		});
 	},
 	componentWillMount() {
-	    let id = this.props.lessonId,
+	    let id = this.props.lessId,
 	    	self = this;
 	    if (!!id) {
-	    	Meteor.call('lessonlessonById', id, function(error, result) {
+	    	Meteor.call('lessonById', id, function(error, result) {
 	    		if (!!error) {
 	    			console.log(error);
 	    			toastr.error(error.reason);
@@ -67,6 +67,9 @@ LessonForm = React.createClass({
 		this.updateSubjects(this.props.catId);
 		this.updateTopics(this.props.subId);
 	},
+	componentDidUpdate(prevProps, prevState) {
+	    $('#content').summernote();  
+	},
 	handleCategoryChange(e) {
 		this.updateSubjects(e.target.value);
 	},
@@ -82,7 +85,7 @@ LessonForm = React.createClass({
 			title: e.target.title.value,
 			description: e.target.desc.value,
 			img: e.target.img.value,
-			content: e.target.content.value,
+			content: $('#content').summernote('code'),
 			tags: e.target.tags.value.split(',').map((s) => { return s.trim() })
 		};
 		if (!!this.state.lesson) {
@@ -105,18 +108,18 @@ LessonForm = React.createClass({
 		return <option value={ val._id } key={ val._id }>{ val.title }</option>;
 	},
 	render() {
-		let lessonId = this.props.lessonId,
+		let lessId = this.props.lessId,
 			lesson = this.state.lesson || {},
 			cats = this.state.cats,
 			subs = this.state.subs,
 			tops = this.state.tops;
-		if ((!!lessonId && lessonId !== lesson._id) || !_.isArray(cats) || !_.isArray(subs) || !_.isArray(tops)) {
+		if ((!!lessId && lessId !== lesson._id) || !_.isArray(cats) || !_.isArray(subs) || !_.isArray(tops)) {
 			return <Loader />
 		}
 		return (
 			<div className="lesson-form-page">
 				<div className="breadcrumbs-container">
-					{ Breadcrumbs.forIds(this.props.catId, this.props.subId, this.props.topId) }
+					{ Breadcrumbs.forIds(this.props.catId, this.props.subId, this.props.topId, this.props.lessId) }
 				</div>
 				<div className="col-xs-8 col-xs-offset-2">
 					<form className="category-form" onSubmit={ this.handleSubmit }>
@@ -152,7 +155,7 @@ LessonForm = React.createClass({
 						</div>
 						<div className="form-group">
 							<label htmlFor="content">Lessons Content</label>
-							<textarea rows="12" className="less-desc form-control" name="content" placeholder="Lesson Html Content" defaultValue={ lesson.content }></textarea>
+							<textarea rows="12" className="less-desc form-control" name="content" id="content" placeholder="Lesson Html Content" defaultValue={ lesson.content }></textarea>
 						</div>
 						<div className="form-group">
 							<label htmlFor="tags">Tags</label>

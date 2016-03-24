@@ -2,6 +2,9 @@ Lessons = new Mongo.Collection('lessons');
 
 {
 	let ModelSchema = new SimpleSchema({
+		createdAt: {
+			type: Date
+		},
 		categoryId: {
 			type: String
 		},

@@ -5,7 +5,9 @@ Breadcrumbs = React.createClass({
 	    sub: React.PropTypes.object,
 	    subId: React.PropTypes.string,
 	    topic: React.PropTypes.object,
-	    topicId: React.PropTypes.string
+	    topicId: React.PropTypes.string,
+	    lesson: React.PropTypes.object,
+	    lessonId: React.PropTypes.string
 	},
 	getInitialState() {
 	    return {
@@ -16,13 +18,22 @@ Breadcrumbs = React.createClass({
 		let params = {
 				catId: this.props.catId,
 				subId: this.props.subId,
-				topicId: this.props.topicId
+				topId: this.props.topicId,
+				lessId: this.props.lessonId
 			},
 			{ cat: cat,
 				sub: sub,
-				topic: topic
+				topic: topic,
+				lesson: lesson
 			} = this.props;
-		if (!!topic) {
+		if (!!lesson) {
+			_.extend(params, {
+				catId: lesson.categoryId,
+				subId: lesson.subjectId,
+				topId: lesson.topicId,
+				lessId: lesson._id
+			});
+		} else if (!!topic) {
 			_.extend(params, {
 				catId: topic.categoryId,
 				subId: topic.subjectId,
@@ -68,8 +79,8 @@ Breadcrumbs = React.createClass({
 });
 
 _.extend(Breadcrumbs, {
-	forIds(catId, subId, topicId) {
-		return <Breadcrumbs catId={ catId } subId={ subId } topicId={ topicId } />;
+	forIds(catId, subId, topicId, lessonId) {
+		return <Breadcrumbs catId={ catId } subId={ subId } topicId={ topicId } lessonId={ lessonId } />;
 	},
 	forCat(cat) {
 		return <Breadcrumbs cat={ cat } />;
@@ -79,5 +90,8 @@ _.extend(Breadcrumbs, {
 	},
 	forTopic(top) {
 		return <Breadcrumbs topic={ top } />;
+	},
+	forLesson(less) {
+		return <Breadcrumbs lesson={ less } />;
 	}
 });

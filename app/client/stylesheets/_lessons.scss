@@ -1,0 +1,37 @@
+.lesson-info-container {
+	padding: 0 1em;
+}
+
+.less-info {
+	img {
+		width: 2em;
+		margin-right: 0.5em;
+	}
+	.less-desc {
+		font-style: italic;
+		color: #AAA;
+	}
+	.less-info-view {
+		float: right;
+	}
+	.less-tags {
+		display: inline-block;
+		.label {
+			margin-right: 1em;
+		}
+	}
+	.less-createdat {
+		display: inline-block;
+		padding-top: 0.5em;
+	}
+}
+
+.lesson-home {
+
+	.lesson-manage {
+		float: right;
+	}
+	.less-content {
+		padding: 1em;
+	}
+}

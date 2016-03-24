@@ -67,6 +67,7 @@ rajit:bootstrap3-datepicker
 momentjs:moment
 anti:i18n
 jss:flag-icon
+summernote:standalone       # WYSIWYG
 
 # REPORTING
 #datariot:ganalytics

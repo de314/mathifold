@@ -88,6 +88,13 @@ Meteor.startup(() => {
 			Topics.update({}, { $unset: { slug: "" }}, { multi: true });
 		}
 	});
+	Migrations.add({
+		version: 2,
+		up() {
+			let date = new Date();
+			Lessons.update({ createdAt: { $exists: false } }, { $set: { createdAt: date }}, { multi: true });
+		}
+	});
 
 	Migrations.migrateTo('latest');
 

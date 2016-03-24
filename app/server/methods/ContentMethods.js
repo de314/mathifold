@@ -28,9 +28,15 @@ Meteor.methods({
 				});
 			}
 		}
-		// if (!!params.lessId) {
-		// 	ctx.cat = Categories.findOne(catId, { fields: { title: 1 }});
-		// }
+		if (!!params.lessId) {
+			let temp = Lessons.findOne(params.lessId, { fields: { title: 1 }});
+			if (!!temp) {
+				b.push({
+					title: temp.title,
+					url: Urls.lessons.lesson.url(temp._id)
+				});
+			}
+		}
 		return b;
 	},
 
@@ -138,11 +144,17 @@ Meteor.methods({
 
 
 
+	lessonsByTopId(topId) {
+		return Lessons.find({ topicId: topId }, { sort: { createdAt: -1 }}).fetch();
+	},
+	lessonById(lessId) {
+		return Lessons.findOne(lessId);
+	},
 	lessonPublish(lesson) {
 		let id;
 		if (!!lesson._id) {
 			id = lesson._id;
-			if (!ContentPolicies.canEditLessons(id)) {
+			if (!ContentPolicies.canEditLesson(id)) {
 				throw new Meteor.Error(403, 'Insufficient Priviledges');
 			}
 			Lessons.update(id, { $set: lesson });
@@ -150,6 +162,7 @@ Meteor.methods({
 			if (!ContentPolicies.canCreateLesson()) {
 				throw new Meteor.Error(403, 'Insufficient Priviledges');
 			}
+			lesson.createdAt = new Date();
 			id = Lessons.insert(lesson);
 		}
 		if (!id) {

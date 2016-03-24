@@ -4,7 +4,7 @@ FlowRouter.route(Urls.lessons.lesson.url(':id'), {
 		
 		ReactLayout.render(MainLayout, {
 			header: <Header />,
-			content: <ComingSoon />
+			content: <LessonHome lessId={ params.id } />
 		});
 	}
 });
@@ -20,12 +20,12 @@ FlowRouter.route(Urls.lessons.create.url(':catId', ':subId', ':topId'), {
 	}
 });
 
-// FlowRouter.route(Urls.lessons.lesson.edit.url(':catId', ':subId', ':topicId'), {
-// 	name: 'topicEdit',
-// 	action(params) {
-// 		ReactLayout.render(MainLayout, {
-// 			header: <Header />,
-// 			content: <ComingSoon />
-// 		});
-// 	}
-// });
+FlowRouter.route(Urls.lessons.lesson.edit.url(':catId', ':subId', ':topId', ':lessId'), {
+	name: 'topicEdit',
+	action(params) {
+		ReactLayout.render(MainLayout, {
+			header: <Header />,
+			content: <LessonForm catId={ params.catId } subId={ params.subId } topId={ params.topId } lessId={ params.lessId } />
+		});
+	}
+});

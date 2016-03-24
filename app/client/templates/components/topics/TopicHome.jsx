@@ -41,8 +41,8 @@ TopicHome = React.createClass({
 					</h1>
 				</div>
 				{ manageEle }
-				<div className="subject-list-container">
-					<em className="text-muted">Lessons coming soon...</em>
+				<div className="lesson-list-container">
+					<LessonsList topId={ topic._id } />
 				</div>
 			</div>
 		);

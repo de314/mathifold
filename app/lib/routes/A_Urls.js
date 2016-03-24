@@ -59,6 +59,11 @@ Urls = {
 		lesson: {
 			url(lessId) {
 				return '/less/' + lessId;
+			},
+			edit: {
+				url(catId, subId, topicId, lessonId) {
+					return '/manage/' + catId + '/' + subId + '/' + topicId + '/' + lessonId;
+				}
 			}
 		},
 		create: {
