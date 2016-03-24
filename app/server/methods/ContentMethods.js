@@ -145,7 +145,7 @@ Meteor.methods({
 
 
 	lessonsByTopId(topId) {
-		return Lessons.find({ topicId: topId }, { sort: { createdAt: -1 }}).fetch();
+		return Lessons.find({ topicId: topId }, { sort: { title: 1 }}).fetch();
 	},
 	lessonById(lessId) {
 		return Lessons.findOne(lessId);
